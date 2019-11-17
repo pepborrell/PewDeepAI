@@ -72,7 +72,7 @@ function sendRequest(file) {
   let data = new FormData();
   data.append("meme", file);
 
-  return fetch("https://0cd35734.ngrok.io/evaluate", {
+  return fetch("https://0a4bf811.ngrok.io/evaluate", {
     // Your POST endpoint
     method: "POST",
     body: data // This is your file object
@@ -156,7 +156,7 @@ function App() {
                 <Typography variant="h5" className={classes.scoreDesc}>
                   {phrases[Math.floor(result.score / (100 / phrases.length))]}
                 </Typography>
-                <Typography variant="h6">Your random comment: </Typography>
+                <Typography variant="h6">Your meme's top comment: </Typography>
                 <Typography variant="body1" className={classes.comment}>
                   "{result.comment}"
                 </Typography>
