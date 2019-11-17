@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "./PewDeepAI.png";
 import { makeStyles } from "@material-ui/core/styles";
 import { DropzoneArea } from "material-ui-dropzone";
-import { Paper, CircularProgress, Typography } from "@material-ui/core";
+import { Paper, CircularProgress, Typography, Button } from "@material-ui/core";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 const phrases = [
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   memePreview: {
     width: "100%",
     maxWidth: "20em",
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
     borderRadius: 5
   },
   score: {
@@ -62,6 +62,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#FFFFFF",
     borderRadius: theme.spacing(1),
     padding: theme.spacing(1)
+  },
+  button: {
+    marginTop: theme.spacing(2)
   }
 }));
 
@@ -69,7 +72,7 @@ function sendRequest(file) {
   let data = new FormData();
   data.append("meme", file);
 
-  return fetch("http://127.0.0.1:5000/evaluate", {
+  return fetch("https://0cd35734.ngrok.io/evaluate", {
     // Your POST endpoint
     method: "POST",
     body: data // This is your file object
@@ -154,12 +157,24 @@ function App() {
                   {phrases[Math.floor(result.score / (100 / phrases.length))]}
                 </Typography>
                 <Typography variant="h6">Your random comment: </Typography>
-                <Typography variant="h5" className={classes.comment}>
+                <Typography variant="body1" className={classes.comment}>
                   "{result.comment}"
                 </Typography>
               </div>
             )}
             <img src={meme} className={classes.memePreview} alt="Meme" />
+            <Button
+              color="secondary"
+              variant="outlined"
+              component="span"
+              className={classes.button}
+              onClick={() => {
+                setMeme(null);
+                setResult({});
+              }}
+            >
+              Check another!
+            </Button>
           </div>
         )}
       </Paper>
